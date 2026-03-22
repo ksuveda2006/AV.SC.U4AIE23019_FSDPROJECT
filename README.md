@@ -1,4 +1,6 @@
-Government Benefits Portal (Flask Web Application)
+**Government Benefits Portal (Flask Web Application)**
+
+
 📌 Project Description
 
 The Government Benefits Portal is a Flask-based web application designed to help users register, log in, and apply for government welfare schemes through an easy-to-use online interface.
@@ -8,30 +10,48 @@ The system allows users to submit personal details, upload required documents, a
 This project was developed as part of the Full Stack Development coursework to demonstrate practical understanding of web application architecture using Flask.
 
 🚀 Features
+
+
 User Registration System
+
 Secure Login Authentication
+
 Dashboard Interface
+
 Government Scheme Application Form
+
 Document Upload Support
+
 Success Confirmation Page
+
 SQLite Database Integration
+
 Bootstrap Responsive UI
+
 jQuery Form Validation
+
 Flask Routing with Jinja2 Templates
-🛠 Technologies Used
+
+**🛠 Technologies Used**
 
 Frontend Technologies
 
 HTML5
+
 CSS3
+
 Bootstrap
+
 JavaScript
+
 jQuery
 
 Backend Technologies
 
 Python
+
 Flask Framework
+
 Jinja2 Template Engine
 
 Database
@@ -49,11 +69,9 @@ GitHub
 
 Step 1: Clone repository
 
-git clone https://github.com/yourusername/projectname.git
+git clone [https://github.com/ksuveda2006/AV.SC.U4AIE23019_FSDPROJECT.git]
 
 Step 2: Navigate into project folder
-
-cd projectname/project
 
 Step 3: Install dependencies
 
@@ -65,4 +83,3 @@ python app.py
 
 Step 5: Open browser
 
-http://127.0.0.1:5000
