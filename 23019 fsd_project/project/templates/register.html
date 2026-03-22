@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row pt-4 pb-5 justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-0 rounded-3">
+            <div class="card-header bg-primary text-white text-center py-3 rounded-top">
+                <h3 class="mb-0">Register Account</h3>
+            </div>
+            <div class="card-body p-4 bg-light">
+                <form action="{{ url_for('register') }}" method="POST">
+
+                    <div class="mb-3">
+                        <label for="full_name" class="form-label fw-bold">Full Name</label>
+                        <input type="text" class="form-control" id="full_name" name="full_name" placeholder="John Doe"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label fw-bold">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="johndoe123"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label fw-bold">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="role" class="form-label fw-bold">Role</label>
+                            <select class="form-select" id="role" name="role" required>
+                                <option value="" selected disabled>Select Role...</option>
+                                <option value="User">Normal User</option>
+                                <option value="Anganwadi">Anganwadi Worker</option>
+                                <option value="Sachavalayam">Sachavalayam Official</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="locality" class="form-label fw-bold">Locality / Ward</label>
+                            <select class="form-select" id="locality" name="locality" required>
+                                <option value="" selected disabled>Select Ward...</option>
+                                <option value="Ward 1">Ward 1</option>
+                                <option value="Ward 2">Ward 2</option>
+                                <option value="Ward 3">Ward 3</option>
+                                <option value="Ward 4">Ward 4</option>
+                                <option value="Ward 5">Ward 5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-grid mt-2">
+                        <button type="submit" class="btn btn-primary btn-lg shadow-sm">Register</button>
+                    </div>
+
+                    <div class="mt-3 text-center">
+                        <p class="text-muted">Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

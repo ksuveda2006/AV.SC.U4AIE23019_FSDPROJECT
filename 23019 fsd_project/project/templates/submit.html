@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row pt-3 pb-5">
+    <div class="col-12">
+        <div class="card shadow border-0 form-card rounded-3">
+            <div class="card-header bg-primary text-white text-center py-3 rounded-top">
+                <h3 class="mb-0">Track New Benefit</h3>
+            </div>
+            <div class="card-body p-4 bg-light">
+                <p class="text-center text-muted mb-4">Enter your details to add an application to the tracking system.
+                </p>
+
+                <form id="trackingForm" action="{{ url_for('submit') }}" method="POST" enctype="multipart/form-data"
+                    novalidate>
+
+                    <div class="alert alert-info py-2 mb-4 d-flex align-items-center">
+                        <i class="me-2">ℹ️</i> Submitting application on behalf of your account.
+                    </div>
+
+                    <!-- Basic Information Section -->
+                    <h5 class="border-bottom pb-2 mb-3 text-secondary fw-bold">Basic Information</h5>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="first_name" class="form-label fw-bold">First Name <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="John"
+                                required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="last_name" class="form-label fw-bold">Last Name <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Doe"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label for="age" class="form-label fw-bold">Age <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="age" name="age" min="1" max="130"
+                                placeholder="e.g 45" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="gender" class="form-label fw-bold">Gender <span
+                                    class="text-danger">*</span></label>
+                            <select class="form-select" id="gender" name="gender" required>
+                                <option value="" selected disabled>Select Gender...</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="address" class="form-label fw-bold">Complete Address <span
+                                class="text-danger">*</span></label>
+                        <textarea class="form-control" id="address" name="address" rows="2"
+                            placeholder="House No, Street, Village, Pincode" required></textarea>
+                    </div>
+
+                    <h5 class="border-bottom pb-2 mb-3 mt-4 text-secondary fw-bold">Scheme Selection</h5>
+
+                    <div class="mb-4">
+                        <label for="scheme_name" class="form-label fw-bold">Government Scheme</label>
+                        <select class="form-select" id="scheme_name" name="scheme_name" required>
+                            <option value="" selected disabled>Select a Scheme...</option>
+                            <option value="Ayushman Bharat (PM-JAY)">Ayushman Bharat (PM-JAY)</option>
+                            <option value="Pradhan Mantri Awas Yojana">Pradhan Mantri Awas Yojana</option>
+                            <option value="PM Kisan Samman Nidhi">PM Kisan Samman Nidhi</option>
+                            <option value="National Social Assistance Programme">National Social Assistance Programme
+                            </option>
+                            <option value="MGNREGA">MGNREGA</option>
+                            <option value="National Scholarship Scheme">National Scholarship Scheme (NSP)</option>
+                            <option value="Sukanya Samriddhi Yojana">Sukanya Samriddhi Yojana</option>
+                            <option value="Public Distribution System">Public Distribution System (Ration Card)</option>
+                            <option value="National Health Mission">National Health Mission</option>
+                            <option value="Other">Other Scheme</option>
+                        </select>
+                        <div class="invalid-feedback" id="schemeError">
+                            Please select a scheme.
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Fields Container -->
+                    <div id="dynamicFieldsContainer"
+                        class="mt-4 mb-4 p-4 border rounded bg-white shadow-sm d-none border-primary border-opacity-25">
+                        <h5 class="border-bottom pb-2 mb-3 text-primary fw-bold">Required Documents for <span
+                                id="selectedSchemeTitle"></span></h5>
+                        <p class="text-muted small mb-3">Please upload exactly what is requested based on your selected
+                            scheme to avoid application rejection.</p>
+                        <div id="dynamicFields" class="row g-3">
+                            <!-- Injected by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Hidden confirmation message area (controlled by jQuery) -->
+                    <div id="formConfirmation" class="alert alert-info d-none mb-3">
+                        Please review your details before submitting.
+                    </div>
+
+                    <div class="d-grid mt-2">
+                        <button type="button" id="reviewBtn" class="btn btn-secondary mb-2">Review Details</button>
+                        <button type="submit" id="submitBtn" class="btn btn-primary btn-lg shadow-sm">Submit
+                            Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center text-center mt-5 mb-5 success-page">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow border-0 p-5 rounded-4 bg-light">
+            <div class="mb-4 success-icon-wrapper">
+                <div class="success-icon text-success display-1">
+                    ✓
+                </div>
+            </div>
+            
+            <h2 class="fw-bold mb-3 text-dark">Success!</h2>
+            <p class="lead text-muted mb-4">Your benefit application has been successfully added to SchemeTrack. You can now monitor its status on the home page.</p>
+            
+            <div class="mt-2">
+                <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 me-2 shadow-sm">Go to Home</a>
+                <a href="{{ url_for('submit') }}" class="btn btn-outline-secondary btn-lg px-4 shadow-sm">Track Another</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

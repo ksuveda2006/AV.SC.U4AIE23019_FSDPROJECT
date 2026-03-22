@@ -1,0 +1,71 @@
+/* Custom variables mapping to our aesthetic */
+:root {
+    --primary-color: #0d6efd;
+    --bg-color: #f8f9fa;
+    --text-color: #212529;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    border-bottom: 3px solid #0a58ca;
+}
+
+.tracking-btn {
+    transition: all 0.3s ease;
+}
+
+.tracking-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Cards */
+.application-card {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+}
+
+.application-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.hero-card {
+    border-radius: 16px;
+    background: linear-gradient(135deg, #ffffff 0%, #f1f3f5 100%) !important;
+}
+
+.form-card {
+    border-radius: 12px;
+}
+
+/* Form inputs styling */
+.form-control:focus, .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Success icon animation */
+.success-icon {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 50%;
+    background-color: #d1e7dd;
+    animation: scale-in 0.5s ease-out;
+}
+
+@keyframes scale-in {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}

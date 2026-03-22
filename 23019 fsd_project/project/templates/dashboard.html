@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <h2>Dashboard - {{ user.role }} ({{ user.locality }})</h2>
+    <p class="text-muted">Welcome back, {{ user.full_name }}!</p>
+</div>
+
+{% if user.role == 'Admin' %}
+<h3 class="mb-3 fw-bold border-bottom pb-2">All Applications</h3>
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Applicant Name</th>
+                <th>Locality</th>
+                <th>Scheme Name</th>
+                <th>Date Applied</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in data.schemes %}
+            <tr>
+                <td>{{ app.id }}</td>
+                <td>{{ app.full_name }}</td>
+                <td><span class="badge bg-secondary">{{ app.locality }}</span></td>
+                <td>{{ app.scheme_name }}</td>
+                <td>{{ app.application_date[:10] }}</td>
+                <td>
+                    <span
+                        class="badge {% if app.status == 'Pending' %}bg-warning text-dark{% elif app.status == 'Approved' %}bg-success{% else %}bg-danger{% endif %}">
+                        {{ app.status }}
+                    </span>
+                </td>
+                <td>
+                    <form action="{{ url_for('update_status', id=app.id) }}" method="POST" class="d-flex gap-2">
+                        <select name="status" class="form-select form-select-sm" style="width: 120px;">
+                            <option value="Pending" {% if app.status=='Pending' %}selected{% endif %}>Pending</option>
+                            <option value="Approved" {% if app.status=='Approved' %}selected{% endif %}>Approve</option>
+                            <option value="Rejected" {% if app.status=='Rejected' %}selected{% endif %}>Reject</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" class="text-center text-muted py-3">No applications found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% elif user.role in ['Anganwadi', 'Sachavalayam'] %}
+<h3 class="mb-3 fw-bold border-bottom pb-2">Users in {{ user.locality }}</h3>
+<div class="row">
+    {% for u in data.ward_users %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm border-0 application-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="card-title text-primary fw-bold mb-0">{{ u.full_name }}</h5>
+                    {% if u.scheme_name %}
+                    <span
+                        class="badge rounded-pill {% if u.status == 'Pending' %}bg-warning text-dark{% elif u.status == 'Approved' %}bg-success{% else %}bg-danger{% endif %}">
+                        {{ u.status }}
+                    </span>
+                    {% else %}
+                    <span class="badge rounded-pill bg-secondary text-light">Not Applied</span>
+                    {% endif %}
+                </div>
+                {% if u.scheme_name %}
+                <p class="card-text text-muted small mb-3">Applied on: {{ u.application_date[:10] }}</p>
+                <div class="bg-light p-2 rounded border border-primary border-opacity-25">
+                    <p class="mb-1"><strong>Applied Scheme:</strong></p>
+                    <p class="mb-2 text-primary fw-bold">{{ u.scheme_name }}</p>
+                    <small class="text-muted"><i class="text-success">✔ Documents attached</i></small>
+                </div>
+                {% else %}
+                <div class="bg-light p-2 rounded text-center text-muted">
+                    <p class="mb-0">This user has not applied for any scheme yet.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <p class="text-muted">No users found in your ward.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<!-- Normal User Dash -->
+<div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+    <h3 class="fw-bold mb-0">My Applications</h3>
+    <a href="{{ url_for('submit') }}" class="btn btn-primary shadow-sm">Track New Benefit</a>
+</div>
+
+<div class="row">
+    {% for app in data.my_schemes %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm border-0 application-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="card-title text-primary fw-bold mb-0">Application Tracker</h5>
+                    <span
+                        class="badge rounded-pill {% if app.status == 'Pending' %}bg-warning text-dark{% elif app.status == 'Approved' %}bg-success{% else %}bg-danger{% endif %}">
+                        {{ app.status }}
+                    </span>
+                </div>
+                <p class="card-text text-muted small mb-3">Applied on: {{ app.application_date[:10] }}</p>
+
+                <div class="bg-light p-2 rounded border border-primary border-opacity-25">
+                    <p class="mb-1"><strong>Scheme:</strong></p>
+                    <p class="mb-2 text-primary fw-bold">{{ app.scheme_name }}</p>
+                    <small class="text-muted"><i class="text-success">✔ Documents attached</i></small>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12 text-center py-5">
+        <div class="text-muted p-4 bg-light rounded shadow-sm">
+            <h4 class="mb-3">No applications found</h4>
+            <p>You haven't applied for any government benefits yet.</p>
+            <a href="{{ url_for('submit') }}" class="btn btn-outline-primary">Track Benefit Now</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
